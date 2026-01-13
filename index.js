@@ -71,7 +71,7 @@ app.get("/my-todo",auth, function (req,res){
        const mytodo= [];
        for(let i=0;i<todos.length; i++){
         if(todos[i].user === req.token) {
-            myTodos.push(todos[i]);
+            mytodo.push(todos[i]);
         }
        }
 
@@ -96,12 +96,33 @@ app.post("/create-todo" ,auth, function (req,res){
     res.status(201).json(newtodo);
 })
 
-app.put("/update-todo",auth ,function (req,res){
+app.put("/update-todo/:id",auth ,function (req,res){
+    const { id } = req.params;
+    const { task } = req.body;
 
+    if (!task) {
+        return res.status(400).json({ error: 'Task is required' });
+    }
+
+    const todoIndex = todos.findIndex(todo => todo.id == id);
+    if (todoIndex !== -1) {
+        todos[todoIndex] = { ...todos[todoIndex], task };
+        res.json(todos[todoIndex]);
+    } else {
+        res.status(404).json({ message: 'Todo not found' });
+    }
 })
 
-app.delete("/delete-todo", auth , function (req,res){
+app.delete("/delete-todo/:id", auth , function (req,res){
+   const {id } = req.params;
+   let todoindex = todos.findIndex(todo => todo.id == id);
 
+   if(todoindex !== -1){
+    todos.splice(todoindex , 1)
+    res.status(204).send(); 
+  } else {
+    res.status(404).json({ message: 'Todo not found' });
+  }
 })
 
 app.listen(3000);
