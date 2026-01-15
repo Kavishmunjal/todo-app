@@ -4,10 +4,16 @@ const jwt = require("jsonwebtoken");
 const jwt_secret = "kavish"
 
 app.use(express.json());
+app.use(express.static("public"));
+
 
 const users= [];
 const todos = []
 let currentid = 1;
+
+app.get("/", function(req,res){
+    res.sendFile(__dirname + "/public/index.html")
+})
 
 //auth endpoint (signin ,signup )
 app.post("/signup", function (req,res){
@@ -67,7 +73,7 @@ function auth(req,res,next){
 
 //todos creating,delete ,update ,delete 
 
-app.get("/my-todo",auth, function (req,res){
+app.get("/my-todo", function (req,res){
        const mytodo= [];
        for(let i=0;i<todos.length; i++){
         if(todos[i].user === req.token) {
@@ -78,7 +84,7 @@ app.get("/my-todo",auth, function (req,res){
        res.json(mytodo);
 })
 
-app.post("/create-todo" ,auth, function (req,res){
+app.post("/create-todo" , function (req,res){
     let {task} = req.body;
     
 
@@ -96,7 +102,7 @@ app.post("/create-todo" ,auth, function (req,res){
     res.status(201).json(newtodo);
 })
 
-app.put("/update-todo/:id",auth ,function (req,res){
+app.put("/update-todo/:id",function (req,res){
     const { id } = req.params;
     const { task } = req.body;
 
@@ -113,7 +119,7 @@ app.put("/update-todo/:id",auth ,function (req,res){
     }
 })
 
-app.delete("/delete-todo/:id", auth , function (req,res){
+app.delete("/delete-todo/:id" , function (req,res){
    const {id } = req.params;
    let todoindex = todos.findIndex(todo => todo.id == id);
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my todos</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script >
+       async function addTodo(){
+            const task = document.getElementById("todo-task").value;
+
+          const response = await axios.post("http://localhost:3000/create-todo" , {
+            task : task
+          })
+
+          mytodo();
+          
+}
+
+async function mytodo() {
+
+        
+        const response = await axios.get("http://localhost:3000/my-todo");
+
+    
+        const todos = response.data;
+
+    
+        const container = document.getElementById("mytodo");
+        container.innerHTML = "";
+
+
+        todos.forEach(todo => {
+    const div = document.createElement("div");
+    div.textContent = todo.task;
+    div.classList.add("todo-item");
+    container.appendChild(div);
+});
+    
+
+    
+        
+}
+mytodo();
+    </script>
+</head>
+<body>
+    
+    <div class="page">
+        <h1>My Todos</h1>
+    
+        <!-- Create Todo -->
+        <form>
+            <div>
+                <label for="todo-task">New Todo</label>
+                <input type="text" id="todo-task" name="task">
+            </div>
+    
+            <button type="button" onclick="addTodo()">Add Todo</button>
+            <br>
+        
+            
+
+    
+        <!-- Todo List -->
+        <ul class="todo-list">
+            <li>
+                <div id="mytodo" onclick="mytodo()"></div>
+                <div class="todo-actions">
+                    <br>
+            
+                    <button class="update" type="button">Update</button>
+                    <button class="delete" type="button">Delete</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+
+</body>
+</html>

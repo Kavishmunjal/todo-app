@@ -1,0 +1,154 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background */
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* Card */
+.page {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(180deg, #ffffff, #f3f4ff);
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #4b4b8f;
+}
+
+/* Form spacing */
+form div {
+    margin-bottom: 18px;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+/* Base button */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 999px; /* pill shape */
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 8px 20px rgba(102, 126, 234, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Glow effect */
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.35);
+    transform: skewX(-25deg);
+    transition: left 0.6s;
+}
+
+/* Hover effects */
+button:hover::before {
+    left: 125%;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 14px 30px rgba(118, 75, 162, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Active / click */
+button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 6px 15px rgba(118, 75, 162, 0.35),
+        inset 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Todo action buttons */
+.todo-actions button {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+}
+
+/* Update button */
+.todo-actions .update {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    box-shadow: 0 6px 15px rgba(67, 206, 162, 0.4);
+}
+
+/* Delete button */
+.todo-actions .delete {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    box-shadow: 0 6px 15px rgba(255, 65, 108, 0.45);
+}
+/* Container for all todos */
+#mytodo {
+    margin-top: 20px;
+}
+
+/* Each todo item */
+#mytodo .todo-item {
+    background: #ffffff;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #333;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+}
+
+/* Hover effect */
+#mytodo .todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
