@@ -6,6 +6,26 @@
     <title>signin</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script>
+     
+async function signin() {
+    const username = document.getElementById("signin-username").value;
+    const password = document.getElementById("signin-password").value;
+
+    const response = await axios.post("http://localhost:3000/signin", {
+        username,
+        password
+    });
+
+    //
+    localStorage.setItem("token", response.data.token);
+
+
+    window.location.href = "/todo.html";
+}
+
+</script>
 <body>
 
     <div class="page">
@@ -22,7 +42,7 @@
                 <input type="password" id="signin-password" name="password">
             </div>
     
-            <button type="submit">Signin</button>
+            <button type="button" onclick="signin()">Signin</button>
         </form>
     
         <a href="signup.html">Don’t have an account? Signup</a>

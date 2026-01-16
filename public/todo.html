@@ -7,12 +7,25 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
     <script >
+        
+
+
+        const token = localStorage.getItem("token");
+        
+
        async function addTodo(){
             const task = document.getElementById("todo-task").value;
 
-          const response = await axios.post("http://localhost:3000/create-todo" , {
-            task : task
-          })
+          const response = await axios.post("http://localhost:3000/create-todo",{
+              task 
+          },
+           {
+        headers: {
+            token: token
+        }
+       }
+);
+
 
           mytodo();
           
@@ -21,7 +34,12 @@
 async function mytodo() {
 
         
-        const response = await axios.get("http://localhost:3000/my-todo");
+        const response = await axios.get("http://localhost:3000/my-todo", {
+    headers: {
+        token: token
+    }
+});
+
 
     
         const todos = response.data;

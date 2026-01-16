@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup for todo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script>
+             async function signup(){
+             const username = document.getElementById("signup-username").value;
+             const password = document.getElementById("signup-password").value;
+
+             const response = axios.post("http://localhost:3000/signup",{
+                username,
+                password
+             })
+
+             window.location.href = "/signin.html";
+             }
+
+
+    </script>
 </head>
 <body>
     
@@ -22,7 +38,7 @@
                 <input type="password" id="signup-password" name="password">
             </div>
     
-            <button type="submit">Signup</button>
+            <button type="button" onclick="signup()">Signup</button>
         </form>
     
         <a href="signin.html">Already have an account? Signin</a>

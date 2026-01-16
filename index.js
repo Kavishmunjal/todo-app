@@ -12,7 +12,7 @@ const todos = []
 let currentid = 1;
 
 app.get("/", function(req,res){
-    res.sendFile(__dirname + "/public/index.html")
+    res.sendFile(__dirname + "/public/signup.html")
 })
 
 //auth endpoint (signin ,signup )
@@ -73,7 +73,7 @@ function auth(req,res,next){
 
 //todos creating,delete ,update ,delete 
 
-app.get("/my-todo", function (req,res){
+app.get("/my-todo", auth, function (req,res){
        const mytodo= [];
        for(let i=0;i<todos.length; i++){
         if(todos[i].user === req.token) {
@@ -84,7 +84,7 @@ app.get("/my-todo", function (req,res){
        res.json(mytodo);
 })
 
-app.post("/create-todo" , function (req,res){
+app.post("/create-todo" , auth, function (req,res){
     let {task} = req.body;
     
 
