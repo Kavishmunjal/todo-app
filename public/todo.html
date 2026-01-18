@@ -50,17 +50,57 @@ async function mytodo() {
 
 
         todos.forEach(todo => {
-    const div = document.createElement("div");
-    div.textContent = todo.task;
-    div.classList.add("todo-item");
-    container.appendChild(div);
-});
-    
+    const todoDiv = document.createElement("div");
+    todoDiv.className = "todo-item";
 
-    
-        
+    const span = document.createElement("span");
+    span.innerText = todo.task;
+
+    const actions = document.createElement("div");
+    actions.className = "todo-actions";
+
+    const updateBtn = document.createElement("button");
+    updateBtn.innerText = "Update";
+    updateBtn.className = "update";
+    updateBtn.onclick = () => updateTodo(todo.id);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete";
+    deleteBtn.className = "delete";
+    deleteBtn.onclick = () => deleteTodo(todo.id);
+
+    actions.appendChild(updateBtn);
+    actions.appendChild(deleteBtn);
+
+    todoDiv.appendChild(span);
+    todoDiv.appendChild(actions);
+
+    container.appendChild(todoDiv);
+});
 }
 mytodo();
+
+async function deleteTodo(id) {
+    await axios.delete(`http://localhost:3000/delete-todo/${id}`, {
+        headers: { token }
+    });
+    mytodo();
+}
+
+async function updateTodo(id) {
+    const newTask = prompt("Update todo:");
+    if (!newTask) return;
+
+    await axios.put(
+        `http://localhost:3000/update-todo/${id}`,
+        { task: newTask },
+        { headers: { token } }
+    );
+
+    mytodo();
+}
+
+
     </script>
 </head>
 <body>
@@ -78,19 +118,14 @@ mytodo();
             <button type="button" onclick="addTodo()">Add Todo</button>
             <br>
         
-            
-
-    
-        <!-- Todo List -->
         <ul class="todo-list">
             <li>
-                <div id="mytodo" onclick="mytodo()"></div>
-                <div class="todo-actions">
-                    <br>
-            
-                    <button class="update" type="button">Update</button>
-                    <button class="delete" type="button">Delete</button>
-                </div>
+          <div id="mytodo">
+                <div id="todo" class="mytodo" onclick="mytodo()"> </div>   
+
+                
+          </div>
+
             </li>
         </ul>
     </div>
